@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Football Teams</title>
+    <link rel="stylesheet" href="assets/text.css">
+
+  </head>
+  <body>
+
+        <div class="container">
+                <h1>NFL Teams</h1>
+        <div id="buttons-view"></div>
+       
+       <form id="teams-form">
+          <label for="teams-input">Add a new team</label>
+          <input type="text" id="teams-input">
+          <br>
+        
+       <input id="add-team" type="submit" value="Add a new team">
+        
+    </form>
+        
+    <button data-team="Green Bay Packers">Green Bay Packers</button>
+    <button data-team="New York Giants">New York Giants</button>
+    <button data-team="Pittsburg Steelers">Pittsburg Steelers</button>
+    <button data-team="Cleveland Browns">Cleveland Browns</button>
+    <button data-team="Tennesse Titans">Tennessee Titans</button>
+    <button data-team="Houston Texans">Houston Texans</button>
+    <button data-team="New England Patriots">New England Patriots</button>
+    <button data-team="Baltimore Ravens">Baltimore Ravens</button>
+    <button data-team="Seattle Seahawks">Seattle Seahawks</button>
+    <button data-team="Dallas Cowboys">Dallas Cowboys</button>
+
+    <div id="teams-view"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+      $("button").on("click", function() {
+       var team = $(this).attr("data-team");
+
+       var queryURL = "https://api.giphy.com/v1/gifs/search?q" + team + "api_key=7RLB2QzacNTz6huDLugTD5jPUkAJ0YW9&limit=10";
+
+       $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+      .then(function(response){
+          var results = response.data;
+      for (var i = 0; i < results.length; i++) {
+          if (results[i].rating !== "r" && results[i].rating !== "pg-13"){
+
+              var teamImage = $("<img>");
+
+              teamImage.attr("src", results[i].images.fixed_height.url);
+
+              gifDiv.append(p);
+              gifDiv.append(teamImage);
+
+              $("gifs-appear-here").prepend(gifDiv);
+          }
+      }
+       })
+   </script>
+  </body>
+</html>
+
+
